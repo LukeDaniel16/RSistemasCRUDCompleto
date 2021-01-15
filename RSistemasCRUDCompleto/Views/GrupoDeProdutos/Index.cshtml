@@ -1,0 +1,53 @@
+﻿@model IEnumerable<RSistemasCRUDCompleto.Models.GrupoDeProdutos>
+
+@{
+    ViewData["Title"] = "Cadastro de Produtos, Visualização, Atualização e Exclusão.";
+}
+
+<h1>C - Cadastro de Produtos<br>R - Visualização<br />U - Atualização<br />D - Exclusão.</h1>
+
+<p>
+    <a asp-action="Create">Criar Novo Grupo de Produtos</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Descrição do Grupo:
+            </th>
+            <th>
+                Status do Grupo:
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Descricao)
+            </td>
+            <td>
+                @*
+        Verifica abaixo o status do grupo, se o status recebido do banco for true, então diz que está ativo, senão, está inativo.
+                *@
+
+                @if (item.Status)
+                {
+                    <p>O Grupo está ativado! @Html.DisplayFor(modelItem => item.Status)</p>
+                }
+                else
+                {
+                   <p>O Grupo está desativado! @Html.DisplayFor(modelItem => item.Status)</p>
+                   
+                }
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Codigo">Editar Grupo</a> |
+                <a asp-action="Details" asp-route-id="@item.Codigo">Visualizar Grupo</a> |
+                <a asp-action="Delete" asp-route-id="@item.Codigo">Apagar Grupo</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
